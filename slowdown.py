@@ -6,9 +6,9 @@ class Camera_hub():
         self.all_index = []
 
     def get_all_cameras(self):
-        # checks the first 10 indexes.
+        # checks the first 7 indexes.
         index = 0
-        i = 10
+        i = 7
         while i > 0:
             cap = cv2.VideoCapture(index)
             if cap.read()[0]:
@@ -23,30 +23,17 @@ class Camera_hub():
 
 
     def start_camera_and_grab_images(self):
-
         cam = cv2.VideoCapture(0)
-
-        cv2.namedWindow("test")
-
         index = 0
 
+        cv2.namedWindow(str(index))
 
         ret, frame = cam.read()
         if ret:
-        # cv2.imshow("test", frame)
-
-        # k = cv2.waitKey(1)
-        # if k%256 == 27:
-        #     # ESC pressed
-        #     print("Escape hit, closing...")
-        #     break
-        # elif k%256 == 32:
-        #     # SPACE pressed
+            cv2.imshow(str(index),frame)
             img_name = "opencv_frame_{}.png".format(index)
             cv2.imwrite(img_name, frame)
             print("{} written!".format(img_name))
-            # img_counter += 1
-            # cv2.waitKey(1000)
         else:
             print("failed to grab frame")
 
