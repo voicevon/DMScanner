@@ -34,6 +34,13 @@ class CameraHub():
             print('')
             print('')
 
+    def set_all_cameras(self,arr_index):
+        for ii in arr_index:
+            cap =cv2.VideoCapture(0)
+            new_camera = Camera(index = ii, capturer= cap)
+            self.all_cameras.append(new_camera)
+            cap.release
+
     def start(self):
         # create video windows
         for this_camera in self.all_cameras:
@@ -41,17 +48,16 @@ class CameraHub():
             this_camera.capturer = cv2.VideoCapture(this_camera.index)
             this_camera.capturer.set(cv2.CAP_PROP_FPS, 1)
 
-            print('aaaaaaaaaaaaaaaaaaaaaa                ',this_camera.index)
-            # print(this_camera)
+            print('Recreated capturer                ',this_camera.index)
             print('')
-        return
+        # return
 
         # monitor and capture image to files when press space key.
         while True:
             for this_camera in self.all_cameras:
                 ret, frame = this_camera.capturer.read()
                 if not ret:
-                    print("failed to grab frame")
+                    # print("x",ender='')
                     break
                 cv2.imshow(str(this_camera.index), frame)
 
@@ -65,12 +71,18 @@ class CameraHub():
                     img_name = "opencv_frame_{}.png".format(this_camera.index)
                     cv2.imwrite(img_name, frame)
                     print("{} written!".format(img_name))
-                    img_counter += 1
 
 
 if __name__ == '__main__':
+
+    cv2.namedWindow('aa')
     my_hub = CameraHub()
+    
     my_hub.get_all_cameras()
+
+    # arr_index = [0,2,4,6]
+    # my_hub.set_all_cameras(arr_index)
+
     my_hub.start()
 
 # cam.release()
