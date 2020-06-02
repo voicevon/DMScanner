@@ -25,10 +25,10 @@ class Camera:
         return width,height
 
     def start(self):
-        # Set image resolution
         self.cam = cv2.VideoCapture(self.__index)
-        self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, 2592)
-        self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 1944)
+        # Set image resolution
+        # self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, 2592)
+        # self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 1944)
         cv2.namedWindow("CameraId=" + str(self.__index))
 
     def capture_image(self):
@@ -58,7 +58,7 @@ class CameraHub():
             cap = cv2.VideoCapture(index)
             if cap.read()[0]:
                 print("get a new camera")
-                
+
                 new_camera = Camera()
                 self.all_cameras.append(new_camera)
                 new_camera.set_index(index)
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     myCamera = Camera()
     cv2.namedWindow('aa')
     myHub.get_all_cameras()
-    myHub.start_all_cameras()
+    # myHub.start_all_cameras()
     
     # print ('Count of cameras = ' , len(arr) , '  index id list=', arr)
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
         elif k%256 == 32:
             # SPACE pressed
             print ('start capturing')
-            myHub.capture_all_images()
+            # myHub.capture_all_images()
 
     cv2.destroyAllWindows()
 
