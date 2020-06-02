@@ -1,5 +1,5 @@
 import cv2
-
+from time import sleep
 cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("test")
@@ -24,6 +24,9 @@ while True:
         cv2.imwrite(img_name, frame)
         print("{} written!".format(img_name))
         img_counter += 1
+        cv2.waitKey(1000)
+        
+    sleep(0.5)
 
 cam.release()
 
