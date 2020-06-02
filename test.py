@@ -57,13 +57,14 @@ class CameraHub():
         while i > 0:
             cap = cv2.VideoCapture(index)
             if cap.read()[0]:
+                print("get a new camera")
+                
                 new_camera = Camera()
                 self.all_cameras.append(new_camera)
                 new_camera.set_index(index)
                 cap.release()
             index += 1
             i -= 1
-        # return allCameras
     
     def start_all_cameras(self):
         for cam in self.all_cameras:
