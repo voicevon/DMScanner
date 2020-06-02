@@ -2,7 +2,7 @@ import cv2
 
 class Camera():
     def __init__(self,index,capturer):
-        self.index = 0
+        self.index = index
         self.capturer = capturer
 
 
@@ -19,15 +19,16 @@ class CameraHub():
         while i > 0:
             print("=========================== trying to find one.")
             cap = cv2.VideoCapture(index)
-            cap.set(cv2.CAP_PROP_FPS, 1)
 
             if cap.read()[0]:
                 print("get a new camera")
 
                 new_camera = Camera(index=index, capturer=cap )
                 self.all_cameras.append(new_camera)
-                # cap.release()
-                print("-----------------added index=",index)
+                cap.release()
+                print("-----------------added new camera =", index)
+                print("-----------------added new camera =",new_camera.index)
+                
             index += 1
             i -= 1
             print('')
@@ -38,6 +39,12 @@ class CameraHub():
         for this_camera in self.all_cameras:
             cv2.namedWindow(str(this_camera.index))
             this_camera.capturer = cv2.VideoCapture(this_camera.index)
+            this_camera.capturer.set(cv2.CAP_PROP_FPS, 1)
+
+            print('aaaaaaaaaaaaaaaaaaaaaa                ',this_camera.index)
+            # print(this_camera)
+            print('')
+        return
 
         # monitor and capture image to files when press space key.
         while True:
