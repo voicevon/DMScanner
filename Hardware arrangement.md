@@ -3,9 +3,9 @@
 ```
 Postion   Physical ID    OpenCV ID
 ----------------------------------------------
-Top-Left        1           6
-Top-Right       2           4
-Bottom-Left     3           2
-Bottom-Right    4           0
+Top-Left        2           4
+Top-Right       4           0
+Bottom-Left     1           6
+Bottom-Right    3           2
 
 ```
