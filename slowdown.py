@@ -22,8 +22,7 @@ class Camera_hub():
         print('get_all_cameras result: ', self.all_index)
 
 
-    def start_camera_and_grab_images(self):
-        counter = 0
+    def start_camera_and_grab_images(self,counter):
         for index in self.all_index:
             this_cam = cv2.VideoCapture(index)
             this_cam.set(cv2.CAP_PROP_FRAME_WIDTH, 2592)
@@ -34,6 +33,8 @@ class Camera_hub():
             if ret:
                 cv2.imshow(str(index),frame)
                 img_name = "a_{}.png".format(index)
+                # img_name = './images/f_' + str(counter) + '_'+ str(index) + '.png'
+                print(img_name)
                 cv2.imwrite(img_name, frame)
                 print("{} written!".format(img_name))
             else:
@@ -48,6 +49,7 @@ myhub.get_all_cameras()
 
 cv2.namedWindow('splash')
 
+counter = 0
 while True:
     k = cv2.waitKey(1)
     if k%256 == 27:
@@ -56,8 +58,8 @@ while True:
         break
     elif k%256 == 32:
         # SPACE pressed
-        myhub.start_camera_and_grab_images()
+        myhub.start_camera_and_grab_images(counter)
         cv2.destroyWindow('splash')
-
+        counter += 1
 
 cv2.destroyAllWindows()
