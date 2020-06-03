@@ -32,17 +32,16 @@ class Camera_hub():
             ret, frame = this_cam.read()
             if ret:
                 cv2.imshow(str(index),frame)
-                img_name = "a_{}.png".format(index)
-                # img_name = './images/f_' + str(counter) + '_'+ str(index) + '.png'
-                print(img_name)
+                # write to file
+                img_name = './images/f_' + str(counter) + '_'+ str(index) + '.png'
                 cv2.imwrite(img_name, frame)
                 print("{} written!".format(img_name))
             else:
                 print("failed to grab frame")
             # prepare for next camera
             this_cam.release
-            cv2.waitKey(0)
-
+            cv2.waitKey(5)   # zero means for ever !!!
+        print ('--------------------------------------------------  All images have been writen' )
 
 myhub = Camera_hub()
 myhub.get_all_cameras()
