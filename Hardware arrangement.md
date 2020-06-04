@@ -10,4 +10,9 @@ Bottom-Right    3           2
 
 ```
 
+
+
+
+
+
 For LED power, 15.4V seems very good.

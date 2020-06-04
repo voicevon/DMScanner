@@ -34,12 +34,20 @@ class Camera_hub():
             this_cam = cv2.VideoCapture(index)
             this_cam.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
             this_cam.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+            if(index == 0):
+                # this_cam.set(cv2.CAP_PROP_FPS, 3)
+                this_cam.set(cv2.CAP_PROP_BRIGHTNESS, 0)
+                # this_cam.set(cv2.CV_CAP_PROP_CONTRAST, 0)
+                # this_cam.set(cv2.CAP_PROP_SATURATION, 0)
+                # this_cam.set(cv2.CAP_PROP_HUE, 0)
+                # this_cam.set(cv2.CAP_PROP_GAIN, 0)
+                # this_cam.set(cv2.CAP_PROP_EXPOSURE, 0)
             cv2.namedWindow(str(index))
 
             # capture image from video
             ret, frame = this_cam.read()
             if ret:
-                if(index == 0 or index == 4):
+                if(index == 4 or index == 6):
                     # rotate 180 degree, only 2 of 4 is necessary.
                     M = cv2.getRotationMatrix2D(center, 180, scale)
                     frame = cv2.warpAffine(frame, M, (WIDTH, HEIGHT)) 

@@ -1,4 +1,3 @@
 /.mypy_cache/*.*
 /.vscode/*.*
-
-opencv_frame*.*
+images/*.png
