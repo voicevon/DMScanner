@@ -20,7 +20,9 @@ class Camera_hub():
 
         print('=========================================')
         print('get_all_cameras result: ', self.all_index)
-
+    def set_all_cameras(self):
+        self.all_index=[0,2]
+        # self.all_index=[0,2,4,6]
 
     def start_camera_and_grab_images(self,counter):
         WIDTH = 2592
@@ -36,12 +38,16 @@ class Camera_hub():
             this_cam.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
             if(index == 0):
                 # this_cam.set(cv2.CAP_PROP_FPS, 3)
-                this_cam.set(cv2.CAP_PROP_BRIGHTNESS, 0)
-                # this_cam.set(cv2.CV_CAP_PROP_CONTRAST, 0)
+                # this_cam.set(cv2.CAP_PROP_BRIGHTNESS, 2)
+                # this_cam.set(cv2.CAP_PROP_CONTRAST, -5)  
                 # this_cam.set(cv2.CAP_PROP_SATURATION, 0)
                 # this_cam.set(cv2.CAP_PROP_HUE, 0)
                 # this_cam.set(cv2.CAP_PROP_GAIN, 0)
-                # this_cam.set(cv2.CAP_PROP_EXPOSURE, 0)
+                this_cam.set(cv2.CAP_PROP_EXPOSURE, -159)
+                print('Camera setting:  CAP_PROP_EXPOSURE      = ' , this_cam.get(cv2.CAP_PROP_EXPOSURE))
+                this_cam.set(cv2.CAP_PROP_AUTO_EXPOSURE, -9.8)
+                print('Camera setting:  CAP_PROP_AUTO_EXPOSURE = ' , this_cam.get(cv2.CAP_PROP_AUTO_EXPOSURE))
+                
             cv2.namedWindow(str(index))
 
             # capture image from video
@@ -66,13 +72,14 @@ class Camera_hub():
         print ('--------------------------------------------------  All images have been writen' )
 
 myhub = Camera_hub()
-myhub.get_all_cameras()
-
+# myhub.get_all_cameras()
+myhub.set_all_cameras()
 cv2.namedWindow('splash')
 
 counter = 0
 while True:
     k = cv2.waitKey(1)
+    k = 32
     if k%256 == 27:
         # ESC pressed
         print("Escape hit, closing...")
@@ -82,5 +89,6 @@ while True:
         myhub.start_camera_and_grab_images(counter)
         cv2.destroyWindow('splash')
         counter += 1
+        break
 
 cv2.destroyAllWindows()
