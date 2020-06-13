@@ -187,6 +187,7 @@ class imgCut:
             # print(listAll[i])
             imgFive = []
             for j in range(0, 5):
+                print(i,j,end=',   ')   # added by Xuming
                 imgOne = img[listAll[i][j][1]-90:listAll[i][j][1]+90, listAll[i][j][0]-90:listAll[i][j][0]+90]
                 imgFive.append(imgOne)
                 cv2.imwrite("{0}-{1}.jpg".format(i, j), imgOne)
