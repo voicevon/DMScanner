@@ -30,10 +30,11 @@ if __name__ == '__main__':
         # 图像切割
         # ===============切割处理===========
         # 4 6 0 2
-        Img0 = cv2.imread("f_7_4.png")
-        Img1 = cv2.imread("f_7_6.png")
-        Img2 = cv2.imread("f_7_0.png")
-        Img3 = cv2.imread("f_7_2.png")
+        Img0 = cv2.imread("images/f_0_4.png")
+        Img1 = cv2.imread("images/f_0_6.png")
+        Img2 = cv2.imread("images/f_0_0.png")
+        Img3 = cv2.imread("images/f_0_2.png")
+       
         imgList = imgCuter.cutImgToList(Img0, Img1, Img2, Img3)
         print(imgList.__len__())
         for i in range(0, imgList.__len__()):

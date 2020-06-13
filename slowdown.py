@@ -21,8 +21,8 @@ class Camera_hub():
         print('=========================================')
         print('get_all_cameras result: ', self.all_index)
     def set_all_cameras(self):
-        self.all_index=[0,2]
-        # self.all_index=[0,2,4,6]
+        # self.all_index=[0,2]
+        self.all_index=[0,2,4,6]
 
     def start_camera_and_grab_images(self,counter):
         WIDTH = 2592
