@@ -36,7 +36,7 @@ class Camera_hub():
             this_cam = cv2.VideoCapture(index)
             this_cam.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
             this_cam.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
-            if(index == 0):
+            if(index != 9):
                 # this_cam.set(cv2.CAP_PROP_FPS, 3)
                 # this_cam.set(cv2.CAP_PROP_BRIGHTNESS, 2)
                 # this_cam.set(cv2.CAP_PROP_CONTRAST, -5)  
@@ -53,14 +53,14 @@ class Camera_hub():
             # capture image from video
             ret, frame = this_cam.read()
             if ret:
-                if(index == 4 or index == 6):
+                if(index == 4 or index == 4):
                     # rotate 180 degree, only 2 of 4 is necessary.
                     M = cv2.getRotationMatrix2D(center, 180, scale)
                     frame = cv2.warpAffine(frame, M, (WIDTH, HEIGHT)) 
                 
                 cv2.imshow(str(index),frame)
                 # write to file
-                img_name = './images/f_' + str(counter) + '_'+ str(index) + '.png'
+                img_name = './images/f_' + str(counter) + '_' + str(index) + '.png'
                 cv2.imwrite(img_name, frame)
                 print("{} written!".format(img_name))
 

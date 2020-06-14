@@ -16,9 +16,14 @@ class imgCut:
         '''
         img_list = []
         img0_new = self.getFiveMultiplyFive(img0, 0)
+        print ('img0 is ok')
         img1_new = self.getFiveMultiplyFive(img1, 1)
+        print ('img1 is ok')
         img2_new = self.getFiveMultiplyFive(img2, 2)
+        print ('img2 is ok')
         img3_new = self.getFiveMultiplyFive(img3, 3)
+        print ('img3 is ok')
+
         # cv2.imshow("img0", img0)
         # cv2.imshow("img0_new", img0_new)
         # cv2.imshow("img1_new", img1_new)
@@ -31,6 +36,7 @@ class imgCut:
         for i in range(0, 5):
             img_list.append(img2_new[i])
             img_list.append(img3_new[i])
+            print('ccccccccccccccccccccccccccccccccc')
         return img_list
 
     def getFive(self, img, line):
@@ -184,7 +190,7 @@ class imgCut:
         # cv2.imshow("binaryCbinaryC", binaryC)
         # cv2.waitKey(0)
         for i in range(0, 5):
-            # print(listAll[i])
+            print(listAll[i])
             imgFive = []
             for j in range(0, 5):
                 print(i,j,end=',   ')   # added by Xuming

@@ -36,12 +36,16 @@ if __name__ == '__main__':
         Img3 = cv2.imread("images/f_0_2.png")
        
         imgList = imgCuter.cutImgToList(Img0, Img1, Img2, Img3)
+        print('aaaaaaaaaaaaaaaaaaaaaaaa')
+
         print(imgList.__len__())
         for i in range(0, imgList.__len__()):
             for j in range(0, imgList[i].__len__()):
                 # if (i * imgList[i].__len__() + j) == 84:
+                print("111111111111111111111111111111111111")
                 code_list[i * imgList[i].__len__() + j] = DMCodeStandardisationer.GetDMCodeImg(imgList[i][j])
                 print("i:{0}  {1}".format(i * imgList[i].__len__() + j, code_list[i * imgList[i].__len__() + j]))
+                print("222222222222222222222222222222222222")
         for i in range(0, 10):
             print("{0}  {1}  {2}  {3}  {4}  {5}  {6}  {7}  {8}  {9}".format(
                 code_list[i * 10], code_list[i * 10 + 1], code_list[i * 10 + 2],

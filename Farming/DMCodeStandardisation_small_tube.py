@@ -51,8 +51,7 @@ class DMCodeStandardisation:
             iCode = DMDecoder.decode(imgR)
             # print("ThresholdValue:{0}".format(ThresholdValue[i]))
             print("i={0} code={1}".format(i, iCode))
-            if len(iCode) == 10:
-                # print("return code : {0}".format(iCode))
+            if iCode != "Error":
                 return iCode
         return "ErrorError"
 
@@ -65,7 +64,7 @@ class DMCodeStandardisation:
         # cv2.imshow("sgray", sgray)
         # cv2.imshow("dst", dst)
         # 这里的参数可能需要调整
-        ret, binaryRd = cv2.threshold(sgray,  170, 255, cv2.THRESH_BINARY)
+        ret, binaryRd = cv2.threshold(sgray,  120, 255, cv2.THRESH_BINARY)
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
         kernel2 = cv2.getStructuringElement(cv2.MORPH_RECT, (9, 9))
         # 开操作。去白点。消除毛边
@@ -76,7 +75,7 @@ class DMCodeStandardisation:
         # binary = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
         binaryRd = cv2.morphologyEx(binaryRd, cv2.MORPH_CLOSE, kernel)
         binaryRd = cv2.morphologyEx(binaryRd, cv2.MORPH_CLOSE, kernel2)
-        # cv2.imshow("binary", binaryRd)
+        # cv2.imshow("binary", binary)
         # cv2.waitKey(0)
         # binary = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel2)
         # cv2.imshow("binary", binary)
@@ -154,16 +153,16 @@ class DMCodeStandardisation:
         # 然后通过定位点，确定X、Y的起点以及步长。
         xyAndStep = self.getXYandStep(binaryRd)
         # print("xyAndStep:{0}".format(xyAndStep))
-        num_list = [[0] * 12 for i in range(12)]
-        for i in range(0, 12):
-            for j in range(0, 12):
+        num_list = [[0] * 14 for i in range(14)]
+        for i in range(0, 14):
+            for j in range(0, 14):
                 if i == 0:
                     num_list[i][j] = (j+1) % 2
-                elif i == 11:
+                elif i == 13:
                     num_list[i][j] = 1
                 elif j == 0:
                     num_list[i][j] = 1
-                elif j == 11:
+                elif j == 13:
                     num_list[i][j] = i % 2
                 else:
                     # 取当前位置的值
@@ -217,17 +216,17 @@ class DMCodeStandardisation:
                 # # print("XB:{0} XZ:{1} xBcont:{2}".format(xB, xBZ, xBcont))
                 # break
         if xBcont == 0:
-            xB = 12
+            xB = 11
         else:
             xB = xBZ/xBcont
         # print("XB:{0} XBZ:{1} xBcont:{2}".format(xB, xBZ, xBcont))
-        if xB > 24:
-            xB = 12
+        if xB > 20:
+            xB = 11
         # 处理右上，获取X终点位置。理论上切出来的是“白黑白”区域。
         # 白：255 黑：0
         xBZ = 0
         xBcont = 0
-        for x in range(0, 30):
+        for x in range(0, 60):
             imgLine = imgRU[x:x+1, 0:60]
             # cv2.imshow("imgLine", imgLine)
             # cv2.waitKey(0)
@@ -252,18 +251,16 @@ class DMCodeStandardisation:
                 # # print("xE:{0} XZ:{1} xBcont:{2}".format(xE, xBZ, xBcont))
                 # break
         if xBcont == 0:
-            xE = 244
+            xE = 251
         else:
             xE = 220 + xBZ/xBcont
-        # print("xB:{0} xE:{1} xBcont:{2}".format(xB, xE, xBcont))
-        iReturn[0] = xB-(xE-xB)/20
-        # print(iReturn[0])
-        iReturn[1] = (xE-xB)/10
-        # print(iReturn[1])
+        # print("xE:{0} xE:{1} xBcont:{2}".format(xE, xE, xBcont))
+        iReturn[0] = xB-(xE-xB)/24
+        iReturn[1] = (xE-xB)/12
         # 处理右上，获取Y的起点位置
         xBZ = 0
         xBcont = 0
-        for x in range(0, 30):
+        for x in range(0, 60):
             imgLine = imgRU[0:60, 59-x:60-x]
             # cv2.imshow("imgLine", imgLine)
             # cv2.waitKey(0)
@@ -288,7 +285,7 @@ class DMCodeStandardisation:
                 # # print("yB:{0} XZ:{1} xBcont:{2}".format(yB, xBZ, xBcont))
                 # break
         if xBcont == 0:
-            yB = 12
+            yB = 11
         else:
             yB = xBZ/xBcont
         # print("yB:{0} XBZ:{1} xBcont:{2}".format(yB, xBZ, xBcont))
@@ -318,12 +315,12 @@ class DMCodeStandardisation:
                 # print("yE:{0} XZ:{1} xBcont:{2}".format(yE, xBZ, xBcont))
                 # break
         if xBcont == 0:
-            yE = 268
+            yE = 251
         else:
             yE = 240 + xBZ/xBcont
         # print("yE:{0} XBZ:{1} xBcont:{2}".format(yE, xBZ, xBcont))
-        iReturn[2] = yB-(yE-yB)/20-(yE-yB)/10
-        iReturn[3] = (yE-yB)/10
+        iReturn[2] = yB-(yE-yB)/24-(yE-yB)/12
+        iReturn[3] = (yE-yB)/12
         # cv2.imshow("imgLU", imgLU)
         # cv2.imshow("imgRU", imgRU)
         # cv2.imshow("imgRD", imgRD)
@@ -374,13 +371,13 @@ class DMCodeStandardisation:
         #        [1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1],
         #        [1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
         #        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-        img = np.zeros([128, 128, 1], dtype=np.uint8)
+        img = np.zeros([146, 146, 1], dtype=np.uint8)
         # img = [[255] * 136 for i in range(136)]
-        for i in range(0, 128):
-            for j in range(0, 128):
+        for i in range(0, 146):
+            for j in range(0, 146):
                 img[i][j] = 255
-        for i in range(0, 12):
-            for j in range(0, 12):
+        for i in range(0, 14):
+            for j in range(0, 14):
                 if codeArray[i][j] == 0:
                     # 白
                     for ii in range(0, 9):
@@ -463,7 +460,7 @@ class DMCodeStandardisation:
         for i in range(0, len(contours)):
             (x, y), radius = cv2.minEnclosingCircle(contours[i])
             # print("x:{0} y:{1} R:{2}".format(x, y, radius))
-            if (abs(x - 300) + abs(y - 300)) < 100 and radius > 220 and radius < 230:
+            if (abs(x - 300) + abs(y - 300)) < 100 and radius > 140 and radius < 200:
                 # print("Find code area")
                 codeContour = contours[i]
                 break
@@ -591,12 +588,12 @@ class DMCodeStandardisation:
 DMCodeStandardisationer = DMCodeStandardisation()
 
 if __name__ == '__main__':
-    for i in range(0, 5):
-        for j in range(0, 5):
-            print('{0}-{1}.jpg'.format(i, j))
-            img = cv2.imread('{0}-{1}.jpg'.format(i, j))
-            DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
+    # for i in range(0, 5):
+    #     for j in range(0, 5):
+    #         print('{0}-{1}.jpg'.format(i, j))
+    #         img = cv2.imread('{0}-{1}.jpg'.format(i, j))
+    #         DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
     # cv2.imshow("DMcodeImgImg", DMcodeImgImg)
     # cv2.waitKey(0)0-4.jpg 1-2
-    # img = cv2.imread('0-0.jpg')
-    # DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
+    img = cv2.imread('0-0.jpg')
+    DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
