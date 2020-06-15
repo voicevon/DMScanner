@@ -3,3 +3,5 @@
 images/*.png
 *.pyc
 *.jpg
+*.JPG
+*.png

@@ -206,7 +206,7 @@ class imgCut:
 imgCuter = imgCut()
 
 if __name__ == '__main__':
-    img = cv2.imread('f_7_0.png')
+    img = cv2.imread('images/f_0_4.png')
     CuttedImg = imgCut().getFiveMultiplyFive(img, 2)
     # cv2.imshow("CuttedImg", CuttedImg)
     # cv2.waitKey(0)

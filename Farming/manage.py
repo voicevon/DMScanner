@@ -4,7 +4,7 @@
 import cv2
 from imgCut import imgCuter
 from DMCodeStandardisation import DMCodeStandardisationer
-from slowdown import Camera_hub
+
 
 
 if __name__ == '__main__':
@@ -18,21 +18,29 @@ if __name__ == '__main__':
     1、二维码与位置的对应关系暂由manage负责处理。
     2、图像处理过程中，会返回所有位置的图像，不管该位置是否有二维码（暂定）。
     '''
+    mode = 3     # 1 Calibrate camera  2 = debug. 3 = Release
+    debug_index_string = "1"
 
-    myhub = Camera_hub()
-    # myhub.get_all_cameras()
-    myhub.set_all_cameras()
-    counter = 0
-    print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+    if mode == 1:
+        pass
+
+    if mode == 3:
+        from slowdown import Camera_hub
+        myhub = Camera_hub()
+        # myhub.get_all_cameras()
+        myhub.set_all_cameras()
+        counter = 0
+
     while True:
-        acmd = input("Press any key with Enter to 开始检测(q退出):")
+        acmd = input("Press Enter to 开始检测(q退出):")
         if acmd == "q":
             print("系统退出!!!!!!!!!!!!!!!!!!!!!!!")
             break
-
-        image_files = myhub.start_camera_and_grab_images(counter)
-        print(image_files)
-        # cv2.destroyWindow('splash')
+        
+        if mode == 3:
+            image_files = myhub.start_camera_and_grab_images(counter)
+            print(image_files)
+            cv2.destroyWindow('splash')
 
         print("开始检测>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         code_list = ["NoAnalysis"] * 100
@@ -43,10 +51,16 @@ if __name__ == '__main__':
         # 图像切割
         # ===============切割处理===========
         # 4 6 0 2
-        Img0 = cv2.imread("images/f_0_4.png")
-        Img1 = cv2.imread("images/f_0_6.png")
-        Img2 = cv2.imread("images/f_0_0.png")
-        Img3 = cv2.imread("images/f_0_2.png")
+        if mode == 3:
+            Img0 = cv2.imread("images/f_" + str(counter) + "_4.png")
+            Img2 = cv2.imread("images/f_" + str(counter) + "_6.png")
+            Img1 = cv2.imread("images/f_" + str(counter) + "_0.png")
+            Img3 = cv2.imread("images/f_" + str(counter) + "_2.png")
+        if mode == 2:
+            Img0 = cv2.imread("images/f_" + debug_index_string + "_4.png")
+            Img2 = cv2.imread("images/f_" + debug_index_string + "_6.png")
+            Img1 = cv2.imread("images/f_" + debug_index_string + "_0.png")
+            Img3 = cv2.imread("images/f_" + debug_index_string + "_2.png")
        
         imgList = imgCuter.cutImgToList(Img0, Img1, Img2, Img3)
 
@@ -54,10 +68,11 @@ if __name__ == '__main__':
         for i in range(0, imgList.__len__()):
             for j in range(0, imgList[i].__len__()):
                 # if (i * imgList[i].__len__() + j) == 84:
-                print("111111111111111111111111111111111111")
+                # print("111111111111111111111111111111111111")
+                # cv2.imwrite("b.jpg", imgList[i][j])
                 code_list[i * imgList[i].__len__() + j] = DMCodeStandardisationer.GetDMCodeImg(imgList[i][j])
                 print("i:{0}  {1}".format(i * imgList[i].__len__() + j, code_list[i * imgList[i].__len__() + j]))
-                print("222222222222222222222222222222222222")
+                # print("222222222222222222222222222222222222")
         for i in range(0, 10):
             print("{0}  {1}  {2}  {3}  {4}  {5}  {6}  {7}  {8}  {9}".format(
                 code_list[i * 10], code_list[i * 10 + 1], code_list[i * 10 + 2],
@@ -65,5 +80,5 @@ if __name__ == '__main__':
                 code_list[i * 10 + 5], code_list[i * 10 + 6],
                 code_list[i * 10 + 7], code_list[i * 10 + 8],
                 code_list[i * 10 + 9]))
-
-        counter += 1
+        if mode == 3:
+            counter += 1

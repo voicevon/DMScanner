@@ -20,29 +20,38 @@ class DMDecode:
         #                             cv2.THRESH_BINARY | cv2.THRESH_OTSU)
         # # cv2.imshow("thresh", thresh)
 
-        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', end='    ')
+        # print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', end='    ')
         try:
             print(img.shape[0])
-            cv2.imwrite('error_img.jpg', img)
+            # cv2.imwrite("A.JPG", img)
             info = decode(img)
+            # print("**********************************")
         except BaseException:
             return "Error1"
 
-        print('bbbbbbbbbbbbbbbbbbbbbbb')
+        # print('bbbbbbbbbbbbbbbbbbbbbbb')
         if info.__len__() == 0:
             print("Error : Len == 0")
             return "Error2"
         
-        print('ccccccccccccccccccccccccc')
-        
+        # print('ccccccccccccccccccccccccc')
         try:
             msg = info[0].data.decode()
         except BaseException:
             print("Error : exception")
             return "Error3"
 
-        print('ffffffffffffffffffffffffffffff')
-        
+        # print('ffffffffffffffffff')
+        # print('Decode reuslt >>>>>>>>>>>>>>>>>> ', msg)
+        try:
+            if len(msg) < 8:
+                cv2.imwrite('err' + msg, img)
+            elif msg[:8] != '00000060':
+                print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+                cv2.imwrite('err_' + msg, img)
+        except BaseException:
+            return msg
+            
         return msg
 
 

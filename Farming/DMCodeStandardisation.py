@@ -41,7 +41,7 @@ class DMCodeStandardisation:
         sgray = cv2.cvtColor(StandardImg, cv2.COLOR_BGR2GRAY)
         dst = cv2.equalizeHist(sgray)
         # ThresholdValue = [108, 95, 100, 110, 120, 130]
-        for i in range(120, 80, -5):
+        for i in range(110, 80, -5):
             # 第五步，图像识别为数组。
             codeArray = self.getCodeArrayByImg(dst, i)
             # 第六步，数组生成标准DMCode图像
@@ -444,7 +444,7 @@ class DMCodeStandardisation:
         for i in range(0, len(contours)):
             (x, y), radius = cv2.minEnclosingCircle(contours[i])
             # print("x:{0} y:{1} R:{2}".format(x, y, radius))
-            if (abs(x - 300) + abs(y - 300)) < 100 and radius > 170 and radius < 230:
+            if (abs(x - 300) + abs(y - 300)) < 100 and radius > 220 and radius < 230:
                 # print("Find code area")
                 codeContour = contours[i]
                 break
@@ -591,12 +591,12 @@ class DMCodeStandardisation:
 DMCodeStandardisationer = DMCodeStandardisation()
 
 if __name__ == '__main__':
-    for i in range(0, 5):
-        for j in range(0, 5):
-            print('{0}-{1}.jpg'.format(i, j))
-            img = cv2.imread('{0}-{1}.jpg'.format(i, j))
-            DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
+    # for i in range(0, 5):
+    #     for j in range(0, 5):
+    #         print('{0}-{1}.jpg'.format(i, j))
+    #         img = cv2.imread('{0}-{1}.jpg'.format(i, j))
+    #         DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
     # cv2.imshow("DMcodeImgImg", DMcodeImgImg)
     # cv2.waitKey(0)0-4.jpg 1-2
-    # img = cv2.imread('0-0.jpg')
-    # DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
+    img = cv2.imread('b.jpg')
+    DMcodeImgImg = DMCodeStandardisation().GetDMCodeImg(img)
