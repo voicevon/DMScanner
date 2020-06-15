@@ -4,6 +4,8 @@
 import cv2
 from imgCut import imgCuter
 from DMCodeStandardisation import DMCodeStandardisationer
+from slowdown import Camera_hub
+
 
 if __name__ == '__main__':
     '''
@@ -16,11 +18,22 @@ if __name__ == '__main__':
     1、二维码与位置的对应关系暂由manage负责处理。
     2、图像处理过程中，会返回所有位置的图像，不管该位置是否有二维码（暂定）。
     '''
+
+    myhub = Camera_hub()
+    # myhub.get_all_cameras()
+    myhub.set_all_cameras()
+    counter = 0
+    print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
     while True:
-        acmd = input("开始检测(q退出):")
+        acmd = input("Press any key with Enter to 开始检测(q退出):")
         if acmd == "q":
             print("系统退出!!!!!!!!!!!!!!!!!!!!!!!")
             break
+
+        image_files = myhub.start_camera_and_grab_images(counter)
+        print(image_files)
+        # cv2.destroyWindow('splash')
+
         print("开始检测>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         code_list = ["NoAnalysis"] * 100
         # for i in range(0, 100):
@@ -36,7 +49,6 @@ if __name__ == '__main__':
         Img3 = cv2.imread("images/f_0_2.png")
        
         imgList = imgCuter.cutImgToList(Img0, Img1, Img2, Img3)
-        print('aaaaaaaaaaaaaaaaaaaaaaaa')
 
         print(imgList.__len__())
         for i in range(0, imgList.__len__()):
@@ -53,3 +65,5 @@ if __name__ == '__main__':
                 code_list[i * 10 + 5], code_list[i * 10 + 6],
                 code_list[i * 10 + 7], code_list[i * 10 + 8],
                 code_list[i * 10 + 9]))
+
+        counter += 1
