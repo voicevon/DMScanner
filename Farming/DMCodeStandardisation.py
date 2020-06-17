@@ -61,8 +61,8 @@ class DMCodeStandardisation:
         获取DMcode的图像区域，需要截取出准确的图像。
         '''
         sgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        # dst = cv2.equalizeHist(sgray)
-        # cv2.imshow("sgray", sgray)
+        dst = cv2.equalizeHist(sgray)
+        cv2.imshow("sgray", sgray)
         # cv2.imshow("dst", dst)
         # 这里的参数可能需要调整
         ret, binaryRd = cv2.threshold(sgray,  170, 255, cv2.THRESH_BINARY)

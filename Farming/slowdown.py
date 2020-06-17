@@ -40,17 +40,18 @@ class Camera_hub():
             this_cam.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
             if(index != 9):
                 # this_cam.set(cv2.CAP_PROP_FPS, 3)
+                print('Camera setting:  CAP_PROP_FPS      = ', this_cam.get(cv2.CAP_PROP_FPS))
                 # this_cam.set(cv2.CAP_PROP_BRIGHTNESS, 2)
                 # this_cam.set(cv2.CAP_PROP_CONTRAST, -5)  
                 # this_cam.set(cv2.CAP_PROP_SATURATION, 0)
                 # this_cam.set(cv2.CAP_PROP_HUE, 0)
                 # this_cam.set(cv2.CAP_PROP_GAIN, 0)
-                this_cam.set(cv2.CAP_PROP_EXPOSURE, -159)
+                # this_cam.set(cv2.CAP_PROP_EXPOSURE, -159)
                 print('Camera setting:  CAP_PROP_EXPOSURE      = ', this_cam.get(cv2.CAP_PROP_EXPOSURE))
                 this_cam.set(cv2.CAP_PROP_AUTO_EXPOSURE, -9.8)
                 print('Camera setting:  CAP_PROP_AUTO_EXPOSURE = ', this_cam.get(cv2.CAP_PROP_AUTO_EXPOSURE))
 
-            cv2.namedWindow(str(index))
+            # cv2.namedWindow(str(index))
 
             # capture image from video
             ret, frame = this_cam.read()
@@ -60,7 +61,7 @@ class Camera_hub():
                     M = cv2.getRotationMatrix2D(center, 180, scale)
                     frame = cv2.warpAffine(frame, M, (WIDTH, HEIGHT))
 
-                cv2.imshow(str(index), frame)
+                # cv2.imshow(str(index), frame)
                 # write to file
                 img_name = './images/f_' + str(counter) + '_' + str(index) + '.png'
                 cv2.imwrite(img_name, frame)
