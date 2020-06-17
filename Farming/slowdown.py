@@ -82,19 +82,20 @@ myhub = Camera_hub()
 myhub.set_all_cameras()
 cv2.namedWindow('splash')
 
-counter = 0
-while True:
-    k = cv2.waitKey(1)
-    k = 32
-    if k % 256 == 27:
-        # ESC pressed
-        print("Escape hit, closing...")
-        break
-    elif k % 256 == 32:
-        # SPACE pressed
-        myhub.start_camera_and_grab_images(counter)
-        cv2.destroyWindow('splash')
-        counter += 1
-        break
+if __name__ == '__main__':
+    counter = 0
+    while True:
+        k = cv2.waitKey(1)
+        k = 32
+        if k % 256 == 27:
+            # ESC pressed
+            print("Escape hit, closing...")
+            break
+        elif k % 256 == 32:
+            # SPACE pressed
+            myhub.start_camera_and_grab_images(counter)
+            cv2.destroyWindow('splash')
+            counter += 1
+            break
 
-cv2.destroyAllWindows()
+    cv2.destroyAllWindows()

@@ -18,8 +18,8 @@ if __name__ == '__main__':
     1、二维码与位置的对应关系暂由manage负责处理。
     2、图像处理过程中，会返回所有位置的图像，不管该位置是否有二维码（暂定）。
     '''
-    mode = 3     # 1 Calibrate camera  2 = debug. 3 = Release
-    debug_index_string = "1"
+    mode = 2     # 1 Calibrate camera  2 = debug. 3 = Release
+    debug_index_string = "0"
 
     if mode == 1:
         pass

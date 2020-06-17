@@ -16,13 +16,13 @@ class imgCut:
         '''
         img_list = []
         img0_new = self.getFiveMultiplyFive(img0, 0)
-        print ('img0 is ok')
+        print('img0 is ok')
         img1_new = self.getFiveMultiplyFive(img1, 1)
-        print ('img1 is ok')
+        print('img1 is ok')
         img2_new = self.getFiveMultiplyFive(img2, 2)
-        print ('img2 is ok')
+        print('img2 is ok')
         img3_new = self.getFiveMultiplyFive(img3, 3)
-        print ('img3 is ok')
+        print('img3 is ok')
 
         # cv2.imshow("img0", img0)
         # cv2.imshow("img0_new", img0_new)
@@ -190,10 +190,11 @@ class imgCut:
         # cv2.imshow("binaryCbinaryC", binaryC)
         # cv2.waitKey(0)
         for i in range(0, 5):
+            print("img_number = " + str(num) + "     listAll - index = " + str(i))
             print(listAll[i])
             imgFive = []
             for j in range(0, 5):
-                print(i,j,end=',   ')   # added by Xuming
+                print(i, j, end=',   ')   # added by Xuming
                 imgOne = img[listAll[i][j][1]-90:listAll[i][j][1]+90, listAll[i][j][0]-90:listAll[i][j][0]+90]
                 imgFive.append(imgOne)
                 cv2.imwrite("{0}-{1}.jpg".format(i, j), imgOne)
