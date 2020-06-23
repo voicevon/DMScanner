@@ -52,10 +52,21 @@ if __name__ == '__main__':
         # ===============切割处理===========
         # 4 6 0 2
         if mode == 3:
-            Img0 = cv2.imread("images/f_" + str(counter) + "_4.png")
-            Img2 = cv2.imread("images/f_" + str(counter) + "_6.png")
-            Img1 = cv2.imread("images/f_" + str(counter) + "_0.png")
-            Img3 = cv2.imread("images/f_" + str(counter) + "_2.png")
+            # Img0 = cv2.imread("images/f_" + str(counter) + "_4.png")
+            # Img2 = cv2.imread("images/f_" + str(counter) + "_6.png")
+            # Img1 = cv2.imread("images/f_" + str(counter) + "_0.png")
+            # Img3 = cv2.imread("images/f_" + str(counter) + "_2.png")
+            
+            # For PC05
+            Img0 = cv2.imread("images/f_" + str(counter) + "_4.png")   # Img0 is in top-right from topview
+            Img1 = cv2.imread("images/f_" + str(counter) + "_6.png")   # Img1 is in top-left from topview 
+            Img2 = cv2.imread("images/f_" + str(counter) + "_0.png")   # Img2 is in bottom-left from topview
+            Img3 = cv2.imread("images/f_" + str(counter) + "_2.png")   # Img3 is in bottom-right from topview
+            # For Thinkpad R400
+            # Img0 = cv2.imread("images/f_" + str(counter) + "_6.png")
+            # Img1 = cv2.imread("images/f_" + str(counter) + "_4.png")
+            # Img2 = cv2.imread("images/f_" + str(counter) + "_4.png")
+            # Img3 = cv2.imread("images/f_" + str(counter) + "_4.png")
         if mode == 2:
             Img0 = cv2.imread("images/f_" + debug_index_string + "_4.png")
             Img2 = cv2.imread("images/f_" + debug_index_string + "_6.png")
@@ -74,11 +85,18 @@ if __name__ == '__main__':
                 print("i:{0}  {1}".format(i * imgList[i].__len__() + j, code_list[i * imgList[i].__len__() + j]))
                 # print("222222222222222222222222222222222222")
         for i in range(0, 10):
+            # print("{0}  {1}  {2}  {3}  {4}  {5}  {6}  {7}  {8}  {9}".format(
+            #     code_list[i * 10], code_list[i * 10 + 1], code_list[i * 10 + 2],
+            #     code_list[i * 10 + 3], code_list[i * 10 + 4],
+            #     code_list[i * 10 + 5], code_list[i * 10 + 6],
+            #     code_list[i * 10 + 7], code_list[i * 10 + 8],
+            #     code_list[i * 10 + 9]))
+
             print("{0}  {1}  {2}  {3}  {4}  {5}  {6}  {7}  {8}  {9}".format(
-                code_list[i * 10], code_list[i * 10 + 1], code_list[i * 10 + 2],
-                code_list[i * 10 + 3], code_list[i * 10 + 4],
-                code_list[i * 10 + 5], code_list[i * 10 + 6],
-                code_list[i * 10 + 7], code_list[i * 10 + 8],
-                code_list[i * 10 + 9]))
+                code_list[i * 10 + 9], code_list[i * 10 + 8],
+                code_list[i * 10 + 7], code_list[i * 10 + 6],
+                code_list[i * 10 + 5], code_list[i * 10 + 4],
+                code_list[i * 10 + 3], code_list[i * 10 + 2],
+                code_list[i * 10 + 1], code_list[i * 10]))
         if mode == 3:
             counter += 1

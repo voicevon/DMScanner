@@ -56,7 +56,10 @@ class Camera_hub():
             # capture image from video
             ret, frame = this_cam.read()
             if ret:
-                if(index == 4 or index == 0):
+                # For PC05
+                if(index == 6 or index == 4):
+                # For ThinkPad R400
+                # if(index == 4 or index == 0):
                     # rotate 180 degree, only 2 of 4 is necessary.
                     M = cv2.getRotationMatrix2D(center, 180, scale)
                     frame = cv2.warpAffine(frame, M, (WIDTH, HEIGHT))
